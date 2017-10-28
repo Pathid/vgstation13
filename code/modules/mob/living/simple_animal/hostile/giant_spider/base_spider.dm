@@ -50,7 +50,7 @@
 	var/busy = 0
 	var/poison_per_bite = 5
 	var/poison_type = TOXIN
-	var/delimbable_icon = 1 // if a spider has a delimbable icon or not
+	var/delimbable_icon = 1 // set this to 0 for spiders without delimbable icons
 
 	//Spider aren't affected by atmos.
 	min_oxy = 0
