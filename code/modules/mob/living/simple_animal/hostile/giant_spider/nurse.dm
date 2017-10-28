@@ -218,3 +218,8 @@ var/list/spider_queens = list()
 	if(!(locate(/obj/effect/spider/stickyweb) in get_turf(src)))
 		new /obj/effect/spider/stickyweb(get_turf(src))
 	qdel(src)
+
+/mob/living/simple_animal/hostile/giant_spider/nurse/queen_spider/update_icons()
+	..()
+	if(stat == DEAD)
+		icon_state = "spider_queen_dead"
