@@ -637,15 +637,17 @@
 		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP)
 			return ..()
 		if(S.brute_dam)
-			S.heal_damage(15,0,0,1)
-			if(user != M)
-				user.visible_message("<span class='attack'>\The [user] patches some dents on \the [M]'s [S.display_name] with \the [src]</span>",\
-				"<span class='attack'>You patch some dents on \the [M]'s [S.display_name]</span>",\
-				"You hear a welder.")
+			if(S.heal_damage(15,0,0,1))
+				if(user != M)
+					user.visible_message("<span class='attack'>\The [user] patches some dents on \the [M]'s [S.display_name] with \the [src]</span>",\
+					"<span class='attack'>You patch some dents on \the [M]'s [S.display_name]</span>",\
+					"You hear a welder.")
+				else
+					user.visible_message("<span class='attack'>\The [user] patches some dents on their [S.display_name] with \the [src]</span>",\
+					"<span class='attack'>You patch some dents on your [S.display_name]</span>",\
+					"You hear a welder.")
 			else
-				user.visible_message("<span class='attack'>\The [user] patches some dents on their [S.display_name] with \the [src]</span>",\
-				"<span class='attack'>You patch some dents on your [S.display_name]</span>",\
-				"You hear a welder.")
+				to_chat(user, "<span class='warning'>The damage is too extensive! Try something else.</span>")
 		else
 			to_chat(user, "Nothing to fix!")
 	else
