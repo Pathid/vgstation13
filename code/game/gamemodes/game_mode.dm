@@ -25,6 +25,7 @@
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
 	var/required_players = 0
 	var/required_players_secret = 0 //Minimum number of players for that game mode to be chose in Secret
+	var/readied_players = 0
 	var/required_enemies = 0
 	var/recommended_enemies = 0
 	var/newscaster_announcements = null
@@ -51,20 +52,20 @@
 ///can_start()
 ///Checks to see if the game can be setup and ran with the current number of players or whatnot.
 /datum/game_mode/proc/can_start()
-	var/playerC = 0
+	readied_players = 0
 	for(var/mob/new_player/player in player_list)
 		if((player.client)&&(player.ready))
-			playerC++
+			readied_players++
 
 	if(master_mode=="secret")
-		if(playerC >= required_players_secret)
+		if(readied_players >= required_players_secret)
 			return 1
 	else
-		if(playerC >= required_players)
+		if(readied_players >= required_players)
 			return 1
 
-	log_admin("Failed to start a round of [name]. Only [playerC] players ready out of [(master_mode=="secret") ? "[required_players_secret]" : "[required_players]"] needed.")
-	message_admins("Failed to start a round of [name]. Only [playerC] players ready out of [(master_mode=="secret") ? "[required_players_secret]" : "[required_players]"] needed.")
+	log_admin("Failed to start a round of [name]. Only [readied_players] players ready out of [(master_mode=="secret") ? "[required_players_secret]" : "[required_players]"] needed.")
+	message_admins("Failed to start a round of [name]. Only [readied_players] players ready out of [(master_mode=="secret") ? "[required_players_secret]" : "[required_players]"] needed.")
 	return 0
 
 
